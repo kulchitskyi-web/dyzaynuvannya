@@ -164,6 +164,21 @@
       font-weight: 700 !important;
     }
 
+    /* Non-wrapping left stage/block badges & flexible adjacent headings on mobile */
+    .section-stage-badge {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: auto !important;
+      height: fit-content !important;
+    }
+    .section-header-title {
+      min-width: 0 !important;
+      flex: 1 1 0% !important;
+    }
+
     h3, h4 {
       font-family: var(--font-body) !important;
       font-size: clamp(15px, 1.4vw, 16px) !important;
@@ -1013,14 +1028,14 @@
       <!-- БЛОК А. Оцінка 4 сфер життя -->
       <section class="theme-card border rounded-2xl p-4 sm:p-6 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b theme-border">
-          <div>
+          <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
               <span
-                class="px-2.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center"
-                style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center;"
+                class="section-stage-badge px-2.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
+                style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
               >Блок А</span>
-              <h2 class="text-base sm:text-lg font-bold">Панель приладів: Оцінка 4 сфер життя</h2>
-              <button type="button" class="bulb-btn" onclick="openHint('block_a_gauges', event)" title="Підказка до Блоку А">💡</button>
+              <h2 class="section-header-title text-base sm:text-lg font-bold" style="min-width: 0; flex: 1;">Панель приладів: Оцінка 4 сфер життя</h2>
+              <button type="button" class="bulb-btn shrink-0" onclick="openHint('block_a_gauges', event)" title="Підказка до Блоку А">💡</button>
             </div>
             <p class="text-xs theme-muted mt-1">
               Оцініть наповненість кожної сфери (0–100%), коротко опишіть поточний стан та оберіть <strong>1–2 пріоритетні сфери</strong> для фокусу.
@@ -1100,7 +1115,6 @@
                 >
                 <span>🎯 Обрати пріоритетом (макс. 2 сфери)</span>
               </label>
-              <button type="button" class="bulb-btn" onclick="openHint('priority_selection', event)">💡</button>
             </div>
           </div>
 
@@ -1164,7 +1178,6 @@
                 >
                 <span>🎯 Обрати пріоритетом (макс. 2 сфери)</span>
               </label>
-              <button type="button" class="bulb-btn" onclick="openHint('priority_selection', event)">💡</button>
             </div>
           </div>
 
@@ -1228,7 +1241,6 @@
                 >
                 <span>🎯 Обрати пріоритетом (макс. 2 сфери)</span>
               </label>
-              <button type="button" class="bulb-btn" onclick="openHint('priority_selection', event)">💡</button>
             </div>
           </div>
 
@@ -1292,7 +1304,6 @@
                 >
                 <span>🎯 Обрати пріоритетом (макс. 2 сфери)</span>
               </label>
-              <button type="button" class="bulb-btn" onclick="openHint('priority_selection', event)">💡</button>
             </div>
           </div>
 
@@ -1304,13 +1315,13 @@
       <!-- ================================================================= -->
       <section class="theme-card border rounded-2xl p-4 sm:p-6 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b theme-border">
-          <div>
+          <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
               <span
-                class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center"
-                style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center;"
+                class="section-stage-badge px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
+                style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
               >Блок Б</span>
-              <h2 class="text-base sm:text-lg font-bold">Інтерактивний «Детектор пасток» (Тренажер переформулювання)</h2>
+              <h2 class="section-header-title text-base sm:text-lg font-bold" style="min-width: 0; flex: 1;">Інтерактивний «Детектор пасток» (Тренажер переформулювання)</h2>
             </div>
             <p class="text-xs theme-muted mt-1">
               Перевірте свою головну проблему на дві класичні пастки мислення: <strong>«Проблему гравітації»</strong> та <strong>«Проблему з гачком»</strong>.
@@ -1605,11 +1616,14 @@
       <!-- 1. Панель управління фокусом та захисту від пасток -->
       <section id="stage2TrapsBanner" class="theme-card border rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b theme-border">
-          <div>
+          <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold">Етап 2</span>
-              <h2 class="text-base sm:text-lg font-bold">Персональний компас (Work View & Life View)</h2>
-              <button type="button" class="bulb-btn" onclick="openHint('stage2_intro', event)" title="Підказка до Персонального компасу">💡</button>
+              <span
+                class="section-stage-badge px-2.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
+                style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
+              >Етап 2</span>
+              <h2 class="section-header-title text-base sm:text-lg font-bold" style="min-width: 0; flex: 1;">Персональний компас (Work View & Life View)</h2>
+              <button type="button" class="bulb-btn shrink-0" onclick="openHint('stage2_intro', event)" title="Підказка до Персонального компасу">💡</button>
             </div>
             <p class="text-xs theme-muted mt-1">
               Сформулюйте свої орієнтири у роботі та житті й перевірте, наскільки вони узгоджені між собою.
@@ -1664,10 +1678,13 @@
           <div class="space-y-3.5">
             <!-- Header + 30-min Timer -->
             <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b theme-border">
-              <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold">Блок А</span>
-                <h3 class="text-sm sm:text-base font-bold">Ваші погляди на роботу (Work View)</h3>
-                <button type="button" class="bulb-btn" onclick="openHint('compass_work_view', event)">💡</button>
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <span
+                  class="section-stage-badge px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
+                  style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
+                >Блок А</span>
+                <h3 class="section-header-title text-sm sm:text-base font-bold" style="min-width: 0; flex: 1;">Ваші погляди на роботу (Work View)</h3>
+                <button type="button" class="bulb-btn shrink-0" onclick="openHint('compass_work_view', event)">💡</button>
               </div>
 
               <!-- 30-Minute Interactive Timer -->
@@ -1738,10 +1755,13 @@
           <div class="space-y-3.5">
             <!-- Header + 30-min Timer -->
             <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b theme-border">
-              <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">Блок Б</span>
-                <h3 class="text-sm sm:text-base font-bold">Ваші погляди на життя (Life View)</h3>
-                <button type="button" class="bulb-btn" onclick="openHint('compass_life_view', event)">💡</button>
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <span
+                  class="section-stage-badge px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
+                  style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
+                >Блок Б</span>
+                <h3 class="section-header-title text-sm sm:text-base font-bold" style="min-width: 0; flex: 1;">Ваші погляди на життя (Life View)</h3>
+                <button type="button" class="bulb-btn shrink-0" onclick="openHint('compass_life_view', event)">💡</button>
               </div>
 
               <!-- 30-Minute Interactive Timer -->
@@ -1813,9 +1833,12 @@
       <section id="stage2CoherenceSection" class="theme-card border rounded-2xl p-4 sm:p-6 shadow-sm space-y-5">
         <div class="pb-3 border-b theme-border">
           <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">Синтез Компасу</span>
-            <h3 class="text-base sm:text-lg font-bold">Синхронізація Компасу (Об'єднання поглядів)</h3>
-            <button type="button" class="bulb-btn" onclick="openHint('compass_coherence_matrix', event)">💡</button>
+            <span
+              class="section-stage-badge px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
+              style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
+            >Синтез Компасу</span>
+            <h3 class="section-header-title text-base sm:text-lg font-bold" style="min-width: 0; flex: 1;">Синхронізація Компасу (Об'єднання поглядів)</h3>
+            <button type="button" class="bulb-btn shrink-0" onclick="openHint('compass_coherence_matrix', event)">💡</button>
           </div>
           <p class="text-xs theme-muted mt-1">
             Перечитайте свої «Погляди на роботу» та «Погляди на життя», дайте відповіді на 3 ключові питання курсу й сформулюйте свої 3 «Північні зірки»:
@@ -2017,13 +2040,13 @@
       <!-- 1B. Навігація по 21 дню (Перемикач Днів 1–21 + календарна прив'язка + маркери рефлексії) -->
       <section class="theme-card border rounded-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 pb-2.5 border-b theme-border">
-          <div class="flex flex-wrap items-center gap-2">
+          <div class="flex items-center gap-2 min-w-0 flex-1">
             <span
-              class="px-2.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center"
-              style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center;"
+              class="section-stage-badge px-2.5 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
+              style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
             >Маршрут 21 дня</span>
-            <h2 class="text-sm sm:text-base font-bold">Навігація по днях та контрольні точки рефлексії</h2>
-            <button type="button" class="bulb-btn" onclick="openHint('stage3_day_nav', event)" title="Підказка: Маршрут 21 дня">💡</button>
+            <h2 class="section-header-title text-sm sm:text-base font-bold" style="min-width: 0; flex: 1;">Навігація по днях та контрольні точки рефлексії</h2>
+            <button type="button" class="bulb-btn shrink-0" onclick="openHint('stage3_day_nav', event)" title="Підказка: Маршрут 21 дня">💡</button>
           </div>
 
           <div class="flex flex-wrap items-center gap-3 justify-between sm:justify-end">
@@ -2241,12 +2264,15 @@
       <!-- 1. Чекліст готовності та правило розблокування -->
       <section class="theme-card border rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div class="flex items-start gap-2.5">
-            <span class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-base shrink-0 mt-0.5">🛡️</span>
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <h2 class="text-base sm:text-lg font-bold">1. Чекліст готовності та статус конвеєра</h2>
-                <button type="button" class="bulb-btn" onclick="openHint('stage4_pipeline', event)" title="Підказка: Принцип роботи конвеєра">💡</button>
+          <div class="flex items-start gap-2.5 min-w-0 flex-1">
+            <span
+              class="section-stage-badge w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-base shrink-0 mt-0.5"
+              style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;"
+            >🛡️</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <h2 class="section-header-title text-base sm:text-lg font-bold" style="min-width: 0; flex: 1;">1. Чекліст готовності та статус конвеєра</h2>
+                <button type="button" class="bulb-btn shrink-0" onclick="openHint('stage4_pipeline', event)" title="Підказка: Принцип роботи конвеєра">💡</button>
               </div>
               <p class="text-xs theme-muted mt-0.5">
                 Генератор фінального AI-промту відкривається виключно після проходження всіх 3 обов'язкових етапів (вперше після рефлексії 3-го дня й оновлюється після кожного наступного спринту: 7, 10, 14, 18, 21).
@@ -2273,12 +2299,15 @@
       <!-- 2. Зведений аналітичний дашборд -->
       <section class="theme-card border rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b theme-border pb-4">
-          <div class="flex items-start gap-2.5">
-            <span class="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-base shrink-0 mt-0.5">📊</span>
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <h2 class="text-base sm:text-lg font-bold">2. Зведений аналітичний дашборд</h2>
-                <button type="button" class="bulb-btn" onclick="openHint('stage4_dashboard', event)" title="Підказка: Зведений аналітичний дашборд">💡</button>
+          <div class="flex items-start gap-2.5 min-w-0 flex-1">
+            <span
+              class="section-stage-badge w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-base shrink-0 mt-0.5"
+              style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;"
+            >📊</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <h2 class="section-header-title text-base sm:text-lg font-bold" style="min-width: 0; flex: 1;">2. Зведений аналітичний дашборд</h2>
+                <button type="button" class="bulb-btn shrink-0" onclick="openHint('stage4_dashboard', event)" title="Підказка: Зведений аналітичний дашборд">💡</button>
               </div>
               <p class="text-xs theme-muted mt-0.5">
                 Автоматичний розрахунок показників прогресу, матриці кореляцій AEIOU-тегів і активностей та ваших стратегічних фільтрів.
@@ -2428,14 +2457,17 @@
       <!-- 3. Генератор фінального мега-промту для дослідження в ШІ -->
       <section class="theme-card border-2 border-indigo-500/40 rounded-2xl p-5 sm:p-7 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div class="flex items-start gap-3">
-            <span class="w-10 h-10 rounded-2xl bg-indigo-500/25 border border-indigo-400/40 flex items-center justify-center text-xl shrink-0">🤖</span>
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <h2 class="text-base sm:text-xl font-extrabold text-white">
+          <div class="flex items-start gap-3 min-w-0 flex-1">
+            <span
+              class="section-stage-badge w-10 h-10 rounded-2xl bg-indigo-500/25 border border-indigo-400/40 flex items-center justify-center text-xl shrink-0"
+              style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;"
+            >🤖</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <h2 class="section-header-title text-base sm:text-xl font-extrabold text-white" style="min-width: 0; flex: 1;">
                   3. Генератор фінального мега-промту для дослідження в ШІ
                 </h2>
-                <button type="button" class="bulb-btn" onclick="openHint('stage4_ai_prompt', event)" title="Підказка: Як працювати з мега-промтом для ШІ">💡</button>
+                <button type="button" class="bulb-btn shrink-0" onclick="openHint('stage4_ai_prompt', event)" title="Підказка: Як працювати з мега-промтом для ШІ">💡</button>
               </div>
               <p class="text-xs sm:text-sm theme-muted mt-0.5">
                 Автоматично збирає ваші відповіді з усіх 4 етапів (Точка А, Пастки, Персональний компас, статистика Журналу та висновки рефлексій) у глибокий інженерний промт для ChatGPT, Claude або Gemini.
