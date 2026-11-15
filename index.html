@@ -720,6 +720,7 @@
     /* Distraction-Free Focus Mode for Stage 2 Writing */
     body.focus-mode #mainHeaderSection,
     body.focus-mode #stage2TrapsBanner,
+    body.focus-mode #stage2SuccessDefSection,
     body.focus-mode #stage2CoherenceSection,
     body.focus-mode #stage2CompletionFooter {
       display: none !important;
@@ -1668,6 +1669,28 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- 1B. Моє персональне визначення успіху (Необов'язкове поле, зберігається в localStorage та AI-промті) -->
+      <section id="stage2SuccessDefSection" class="theme-card border rounded-2xl p-4 sm:p-5 shadow-sm space-y-2.5">
+        <div class="flex items-center justify-between gap-2">
+          <label for="compassSuccessDefInput" class="text-sm sm:text-base font-bold flex items-center gap-2 cursor-pointer">
+            <span>🎯 Моє персональне визначення успіху</span>
+          </label>
+          <button
+            type="button"
+            class="bulb-btn shrink-0"
+            onclick="openHint('compass_success_def', event)"
+            title="За методологією дизайну життя успіх — це досягнення саме ваших цілей, а не соціальний шаблон (статус чи чужі очікування). Коротко сформулюйте, що означає успіх особисто для вас на цьому етапі життя"
+          >💡</button>
+        </div>
+        <textarea
+          id="compassSuccessDefInput"
+          rows="3"
+          oninput="handleCompassMatrixInput('successDefinition', this.value)"
+          placeholder="Наприклад: стабільний прибутковий бізнес в інжинірингу без операційного вигорання, завершене будівництво та вільні вихідні з родиною..."
+          class="w-full rounded-xl border p-3.5 text-xs sm:text-sm leading-relaxed theme-input resize-y"
+        ></textarea>
       </section>
 
       <!-- 2. Два блоки потоку свідомості (Work View та Life View) -->
@@ -2885,6 +2908,7 @@
         }
       },
       stage2: {
+        successDefinition: '',
         workView: '',
         lifeView: '',
         synergy: '',
@@ -3023,6 +3047,12 @@
         what: 'Намагання написати те, що «прийнято у суспільстві», що схвалили б батьки, керівник або що красиво звучить на співбесіді.',
         how: 'Запитуйте себе: «А як насправді думаю я?». Якщо на певному етапі життя для вас критично важлива фінансова подушка чи спокій — напишіть про це прямо.',
         benefit: 'Компас працює лише тоді, коли налаштований на вашу власну Північ, а не на чужі очікування.'
+      },
+      compass_success_def: {
+        title: '🎯 Моє персональне визначення успіху',
+        what: 'За методологією дизайну життя успіх — це досягнення саме ваших цілей, а не соціальний шаблон (статус чи чужі очікування). Коротко сформулюйте, що означає успіх особисто для вас на цьому етапі життя.',
+        how: 'Наприклад: «стабільний прибутковий бізнес в інжинірингу без операційного вигорання, завершене будівництво та вільні вихідні з родиною...».',
+        benefit: 'Задає ваш власний критерій перемоги й автоматично підставляється у Блок 3 (Персональний компас) фінального мега-промту для ШІ на Етапі 4.'
       },
       compass_work_view: {
         title: 'Ваші погляди на роботу (Work View)',
@@ -3325,10 +3355,13 @@
         }
       }
 
-      if (incoming.stage2) {
+      if (incoming.stage2 && typeof incoming.stage2 === 'object') {
         merged.stage2 = {
           ...base.stage2,
-          ...incoming.stage2
+          ...incoming.stage2,
+          successDefinition: typeof incoming.stage2.successDefinition === 'string'
+            ? incoming.stage2.successDefinition
+            : ''
         };
         if (!Array.isArray(merged.stage2.northStars) || merged.stage2.northStars.length < 3) {
           const arr = Array.isArray(incoming.stage2.northStars) ? incoming.stage2.northStars : [];
@@ -5821,7 +5854,11 @@
           </div>
 
           <div class="space-y-2">
-            <div class="text-xs font-bold text-indigo-300">🧭 Мої 3 «Північні зірки» (правила-фільтри для рішень):</div>
+            <div class="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-xs leading-relaxed">
+              <div class="font-bold text-indigo-300">🎯 Моє персональне визначення успіху:</div>
+              <div class="theme-muted mt-0.5">${s2.successDefinition && s2.successDefinition.trim() ? escapeHtml(s2.successDefinition) : '—'}</div>
+            </div>
+            <div class="text-xs font-bold text-indigo-300 pt-1">🧭 Мої 3 «Північні зірки» (правила-фільтри для рішень):</div>
             <div class="space-y-2">
               ${starsHtml}
             </div>
@@ -6065,6 +6102,9 @@
         `====================================================================`,
         `БЛОК 3. ПЕРСОНАЛЬНИЙ КОМПАС (WORK VIEW & LIFE VIEW)`,
         `====================================================================`,
+        `• Моє персональне визначення успіху:`,
+        `${(s2.successDefinition || '').trim() || '—'}`,
+        ``,
         `• Мої погляди на роботу (Work View):`,
         `${s2.workView || '—'}`,
         ``,
@@ -6234,6 +6274,7 @@
 
       // Hydrate Stage 2: Personal Compass
       const s2 = appState.stage2;
+      const successDefTa = document.getElementById('compassSuccessDefInput');
       const workTa = document.getElementById('compassWorkTextarea');
       const lifeTa = document.getElementById('compassLifeTextarea');
       const synTa = document.getElementById('compassSynergyInput');
@@ -6243,6 +6284,7 @@
       const ns2 = document.getElementById('northStar_2');
       const ns3 = document.getElementById('northStar_3');
 
+      if (successDefTa) successDefTa.value = s2.successDefinition || '';
       if (workTa) workTa.value = s2.workView || '';
       if (lifeTa) lifeTa.value = s2.lifeView || '';
       if (synTa) synTa.value = s2.synergy || '';
