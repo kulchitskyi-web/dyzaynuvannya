@@ -425,12 +425,27 @@
     }
 
     /* =================================================================== */
-    /* STAGE 3: 21-DAY SWITCHER BUTTONS (High-Contrast Active Day)         */
+    /* STAGE 3: 21-DAY SWITCHER BUTTONS (High-Contrast Active Day & Grid)  */
     /* =================================================================== */
+    #daySwitcherGrid {
+      display: grid !important;
+      grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+      gap: 6px;
+      width: 100% !important;
+      box-sizing: border-box;
+    }
     .day-switcher-btn {
       background-color: var(--bg-subcard);
       border-color: var(--border-main);
       color: var(--fg-main);
+      padding: 6px 2px !important;
+      min-width: 0 !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      box-sizing: border-box;
     }
     .day-switcher-btn:hover {
       border-color: #6366F1;
@@ -466,12 +481,104 @@
       font-size: 11px !important;
       line-height: 1.15 !important;
       font-weight: 500;
-      white-space: nowrap;
+      white-space: nowrap !important;
       opacity: 0.85;
     }
     .day-switcher-btn.is-active .day-calendar-sublabel {
       opacity: 1 !important;
       color: #FFFFFF !important;
+    }
+    .day-date-compact {
+      display: none;
+    }
+    .day-date-full {
+      display: inline;
+    }
+    .day-refl-badge,
+    .day-marker-badge {
+      white-space: nowrap !important;
+      line-height: 1.15;
+    }
+
+    /* Stage 3 Time Slot Badges ("🌅 Ранок", "☀️ День", "🌙 Вечір") */
+    .slot-header-badge {
+      display: inline-flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 6px !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      width: auto !important;
+      height: fit-content !important;
+      padding: 4px 10px !important;
+    }
+    .slot-header-subtitle {
+      min-width: 0 !important;
+      flex: 1 1 0% !important;
+    }
+
+    /* Stage 2 Block A & Block B Two-Row Mobile Header + Stage 3 Mobile 21-Day Grid */
+    @media (max-width: 480px) {
+      #daySwitcherGrid {
+        display: grid !important;
+        grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+        gap: 4px !important;
+        width: 100% !important;
+      }
+      .day-switcher-btn {
+        padding: 6px 2px !important;
+        min-width: 0 !important;
+        min-height: 58px !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+      }
+      .day-number-label {
+        font-size: 10px !important;
+        line-height: 1.1 !important;
+        white-space: nowrap !important;
+      }
+      .day-date-full {
+        display: none !important;
+      }
+      .day-date-compact {
+        display: inline !important;
+      }
+      .day-calendar-sublabel {
+        font-size: 9px !important;
+        line-height: 1.1 !important;
+        white-space: nowrap !important;
+      }
+      .day-refl-badge,
+      .day-marker-badge {
+        font-size: 9px !important;
+        padding: 1px 4px !important;
+        margin-top: 2px !important;
+        line-height: 1.1 !important;
+        white-space: nowrap !important;
+      }
+
+      .compass-stream-header {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+      }
+      .compass-stream-title-row {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        min-width: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      .compass-timer-pill {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        box-sizing: border-box !important;
+      }
     }
 
     /* Custom Range Slider */
@@ -1700,8 +1807,8 @@
         <div id="compassBlock_work" class="theme-card border rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between space-y-4">
           <div class="space-y-3.5">
             <!-- Header + 30-min Timer -->
-            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b theme-border">
-              <div class="flex items-center gap-2 min-w-0 flex-1">
+            <div class="compass-stream-header flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b theme-border">
+              <div class="compass-stream-title-row flex items-center gap-2 min-w-0 flex-1" style="min-width: 0; flex: 1;">
                 <span
                   class="section-stage-badge px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
                   style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
@@ -1711,25 +1818,29 @@
               </div>
 
               <!-- 30-Minute Interactive Timer -->
-              <div id="timerBox_work" class="flex items-center gap-1.5 bg-black/25 border theme-border rounded-xl px-2.5 py-1.5 text-xs">
-                <span class="opacity-75">⏱️</span>
-                <span id="timerDisplay_work" class="font-mono font-bold text-sm text-indigo-300">30:00</span>
-                <button
-                  type="button"
-                  id="timerStartBtn_work"
-                  onclick="toggleStreamTimer('work')"
-                  class="px-2.5 py-0.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition"
-                >
-                  Старт
-                </button>
-                <button
-                  type="button"
-                  onclick="resetStreamTimer('work')"
-                  class="px-1.5 py-0.5 rounded-lg hover:bg-white/10 theme-muted hover:text-white transition"
-                  title="Скинути таймер на 30:00"
-                >
-                  ↺
-                </button>
+              <div id="timerBox_work" class="compass-timer-pill flex items-center justify-between gap-1.5 bg-black/25 border theme-border rounded-xl px-2.5 py-1.5 text-xs">
+                <div class="inline-flex items-center gap-1.5">
+                  <span class="opacity-75">⏱️</span>
+                  <span id="timerDisplay_work" class="font-mono font-bold text-sm text-indigo-300">30:00</span>
+                </div>
+                <div class="inline-flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    id="timerStartBtn_work"
+                    onclick="toggleStreamTimer('work')"
+                    class="px-2.5 py-0.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition"
+                  >
+                    Старт
+                  </button>
+                  <button
+                    type="button"
+                    onclick="resetStreamTimer('work')"
+                    class="px-1.5 py-0.5 rounded-lg hover:bg-white/10 theme-muted hover:text-white transition"
+                    title="Скинути таймер на 30:00"
+                  >
+                    ↺
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1777,8 +1888,8 @@
         <div id="compassBlock_life" class="theme-card border rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between space-y-4">
           <div class="space-y-3.5">
             <!-- Header + 30-min Timer -->
-            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b theme-border">
-              <div class="flex items-center gap-2 min-w-0 flex-1">
+            <div class="compass-stream-header flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b theme-border">
+              <div class="compass-stream-title-row flex items-center gap-2 min-w-0 flex-1" style="min-width: 0; flex: 1;">
                 <span
                   class="section-stage-badge px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold whitespace-nowrap shrink-0 inline-flex items-center justify-center"
                   style="white-space: nowrap; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: auto; height: fit-content;"
@@ -1788,25 +1899,29 @@
               </div>
 
               <!-- 30-Minute Interactive Timer -->
-              <div id="timerBox_life" class="flex items-center gap-1.5 bg-black/25 border theme-border rounded-xl px-2.5 py-1.5 text-xs">
-                <span class="opacity-75">⏱️</span>
-                <span id="timerDisplay_life" class="font-mono font-bold text-sm text-emerald-300">30:00</span>
-                <button
-                  type="button"
-                  id="timerStartBtn_life"
-                  onclick="toggleStreamTimer('life')"
-                  class="px-2.5 py-0.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition"
-                >
-                  Старт
-                </button>
-                <button
-                  type="button"
-                  onclick="resetStreamTimer('life')"
-                  class="px-1.5 py-0.5 rounded-lg hover:bg-white/10 theme-muted hover:text-white transition"
-                  title="Скинути таймер на 30:00"
-                >
-                  ↺
-                </button>
+              <div id="timerBox_life" class="compass-timer-pill flex items-center justify-between gap-1.5 bg-black/25 border theme-border rounded-xl px-2.5 py-1.5 text-xs">
+                <div class="inline-flex items-center gap-1.5">
+                  <span class="opacity-75">⏱️</span>
+                  <span id="timerDisplay_life" class="font-mono font-bold text-sm text-emerald-300">30:00</span>
+                </div>
+                <div class="inline-flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    id="timerStartBtn_life"
+                    onclick="toggleStreamTimer('life')"
+                    class="px-2.5 py-0.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition"
+                  >
+                    Старт
+                  </button>
+                  <button
+                    type="button"
+                    onclick="resetStreamTimer('life')"
+                    class="px-1.5 py-0.5 rounded-lg hover:bg-white/10 theme-muted hover:text-white transition"
+                    title="Скинути таймер на 30:00"
+                  >
+                    ↺
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -2108,7 +2223,11 @@
         </div>
 
         <!-- 21 Day Buttons Grid -->
-        <div id="daySwitcherGrid" class="grid grid-cols-7 sm:grid-cols-7 md:grid-cols-7 gap-1.5 sm:gap-2">
+        <div
+          id="daySwitcherGrid"
+          class="grid grid-cols-7 gap-1 sm:gap-2"
+          style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); width: 100%;"
+        >
           <!-- Populated dynamically by renderStage3DaySwitcher() -->
         </div>
       </section>
@@ -4296,6 +4415,8 @@
       }
 
       const dNum = baseDate.getDate();
+      const ddPadded = String(dNum).padStart(2, '0');
+      const mmPadded = String(baseDate.getMonth() + 1).padStart(2, '0');
       const shortMonth = UKR_MONTHS_SHORT[baseDate.getMonth()] || '';
       const shortDow = UKR_DOW_SHORT[baseDate.getDay()] || '';
       const isWeekend = baseDate.getDay() === 0 || baseDate.getDay() === 6;
@@ -4306,6 +4427,7 @@
         shortDow,
         isWeekend,
         buttonSublabel: `${dNum} ${shortMonth} • ${shortDow}`,
+        compactSublabel: `${ddPadded}.${mmPadded} ${shortDow}`,
         promptDateStr: `${dNum} ${shortMonth}, ${shortDow}`,
         fullDayTitle: `День ${dayNum} (${dNum} ${shortMonth}, ${shortDow})`
       };
@@ -4345,7 +4467,7 @@
         const isLocked = Boolean(blockingCp);
         const calInfo = getDayCalendarInfo(d);
 
-        let baseClasses = 'day-switcher-btn relative rounded-xl border p-2 text-center transition flex flex-col items-center justify-center gap-0.5 min-h-[66px] ';
+        let baseClasses = 'day-switcher-btn relative rounded-xl border text-center transition flex flex-col items-center justify-between gap-0.5 min-h-[64px] ';
         if (isCurrent) {
           baseClasses += 'is-active border-indigo-500 bg-indigo-600 text-white ring-2 ring-indigo-500/40 font-bold shadow-md cursor-pointer';
         } else if (isLocked) {
@@ -4358,15 +4480,15 @@
 
         let markerHtml = '';
         if (isLocked) {
-          markerHtml = `<span class="text-xs" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}" title="Заблоковано до проходження рефлексії Дня ${blockingCp}">🔒</span>`;
+          markerHtml = `<span class="day-marker-badge text-xs" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}" title="Заблоковано до проходження рефлексії Дня ${blockingCp}">🔒</span>`;
         } else if (isCheckpoint) {
           markerHtml = reflDone
-            ? `<span class="text-xs ${isCurrent ? 'text-white' : 'text-emerald-400'} font-bold" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}" title="Рефлексію спринту виконано">✅ Рефл.</span>`
-            : `<span class="text-xs ${isCurrent ? 'text-white' : 'text-amber-300'} font-bold" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}" title="Обов'язкова рефлексія спринту">🏁 Рефл.</span>`;
+            ? `<span class="day-refl-badge text-xs ${isCurrent ? 'text-white' : 'text-emerald-400'} font-bold" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}" title="Рефлексію спринту виконано">✅ Рефл.</span>`
+            : `<span class="day-refl-badge text-xs ${isCurrent ? 'text-white' : 'text-amber-300'} font-bold" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}" title="Обов'язкова рефлексія спринту">🏁 Рефл.</span>`;
         } else if (filled) {
-          markerHtml = `<span class="text-xs ${isCurrent ? 'text-white' : 'text-emerald-400'} font-bold" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}">✓ Запис</span>`;
+          markerHtml = `<span class="day-marker-badge text-xs ${isCurrent ? 'text-white' : 'text-emerald-400'} font-bold" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}">✓ Запис</span>`;
         } else {
-          markerHtml = `<span class="text-xs ${isCurrent ? 'text-white' : 'opacity-50'}" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}">•</span>`;
+          markerHtml = `<span class="day-marker-badge text-xs ${isCurrent ? 'text-white' : 'opacity-50'}" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}">•</span>`;
         }
 
         html += `
@@ -4374,10 +4496,13 @@
             type="button"
             onclick="selectStage3Day(${d})"
             class="${baseClasses}"
-            style="${isCurrent ? 'color: #FFFFFF !important;' : ''}"
+            style="padding: 6px 2px; min-width: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: space-between; ${isCurrent ? 'color: #FFFFFF !important;' : ''}"
           >
-            <span class="text-xs font-bold ${isCurrent ? 'text-white' : ''}" style="${isCurrent ? 'color: #FFFFFF !important;' : ''}">День ${d}</span>
-            <span class="day-calendar-sublabel" style="font-size: 11px; ${isCurrent ? 'color: #FFFFFF !important; opacity: 1;' : ''}">${calInfo.buttonSublabel}</span>
+            <span class="day-number-label text-xs font-bold ${isCurrent ? 'text-white' : ''}" style="white-space: nowrap; ${isCurrent ? 'color: #FFFFFF !important;' : ''}">День ${d}</span>
+            <span class="day-calendar-sublabel" style="${isCurrent ? 'color: #FFFFFF !important; opacity: 1;' : ''}">
+              <span class="day-date-full">${calInfo.buttonSublabel}</span>
+              <span class="day-date-compact">${calInfo.compactSublabel}</span>
+            </span>
             ${markerHtml}
           </button>
         `;
@@ -4745,13 +4870,15 @@
         return `
           <div class="theme-card border rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b theme-border">
-              <div class="flex items-center gap-2.5">
-                <span class="px-2.5 py-1 rounded-lg border text-xs font-bold ${slot.badgeBg}">
-                  ${slot.icon} ${slot.title}
+              <div class="flex items-center gap-2.5 min-w-0 flex-1" style="min-width: 0; flex: 1;">
+                <span
+                  class="slot-header-badge rounded-lg border text-xs font-bold ${slot.badgeBg}"
+                  style="display: inline-flex; flex-direction: row; align-items: center; gap: 6px; white-space: nowrap; flex-shrink: 0; width: auto; height: fit-content; padding: 4px 10px;"
+                >
+                  <span>${slot.icon}</span>
+                  <span>${slot.title}</span>
                 </span>
-                <div>
-                  <h4 class="text-xs sm:text-sm font-bold">${slot.subtitle}</h4>
-                </div>
+                <h4 class="slot-header-subtitle text-xs sm:text-sm font-bold" style="min-width: 0; flex: 1;">${slot.subtitle}</h4>
               </div>
 
               <button
